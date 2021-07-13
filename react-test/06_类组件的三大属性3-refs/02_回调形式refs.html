@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello React</title>
+</head>
+<body>
+<div id="test"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+
+
+<script type="text/javascript" src="../js/react.development.js"></script><!-- react 核心库js -->
+<script type="text/javascript" src="../js/react-dom.development.js"></script><!-- 支持操作dom的js -->
+<script type="text/javascript" src="../js/babel.min.js"></script> <!-- 将JSX转换为JS -->
+<!-- 此处一定是babel -->
+<script type="text/babel">
+    class Demo extends React.Component {
+
+        myAlert = () => {
+            const {input1} = this
+            alert(input1.value)
+        }
+        myAlert2 = () => {
+            const {input2} = this
+            alert(input2.value)
+        }
+        showInput=(currentNode)=>{
+            this.input2=currentNode
+        }
+
+        render() {
+            return (
+                <div>
+
+                    <div>
+                        <input type="text" ref={(input) => {
+                            this.input1 = input
+                        }}/>
+                        <button onClick={this.myAlert}>输入完弹窗</button>
+
+                    </div>
+                    <div>
+                        {/*回调形式的以内敛形式ref在更新时会调用两次，一次null，第二次才把节点传进去（但是不影响使用）*/}
+                        {/*<input type="text" ref={input => this.input2 = input} onBlur={this.myAlert2}/>*/}
+                        <input type="text" ref={this.showInput} onBlur={this.myAlert2}/>
+
+                    </div>
+                </div>
+
+            )
+        }
+    }
+
+    ReactDOM.render(<Demo/>, document.getElementById('test'))
+
+
+</script>
+
+</body>
+</html>

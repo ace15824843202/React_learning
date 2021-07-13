@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>getSnapshotBeforeUpdate</title>
+    <style>
+        .list {
+            height: 150px;
+            width: 200px;
+            background: lightblue;
+            overflow: auto;
+        }
+
+        .news {
+            height: 30px
+        }
+    </style>
+</head>
+<body>
+<div id="test"></div>
+
+
+<script type="text/javascript" src="../js_new/babel.min.js"></script> <!-- 将JSX转换为JS -->
+<script type="text/javascript" src="../js_new/react.development.js"></script><!-- react 核心库js -->
+<script type="text/javascript" src="../js_new/react-dom.development.js"></script><!-- 支持操作dom的js -->
+<!-- 此处一定是babel -->
+<script type="text/babel">
+    class NewList extends React.Component {
+        state = {newArr: []}
+
+        componentDidMount() {
+
+           this.timer= setInterval(() => {
+                let {newArr} = this.state
+                const news = '新闻' + (newArr.length + 1)
+                this.setState({newArr: [news,...newArr]})
+            }, 1000)
+        }
+        getSnapshotBeforeUpdate(){
+            return this.input1.scrollHeight
+        }
+        componentDidUpdate(prevProps,prevState,height){
+            this.input1.scrollTop+=this.input1.scrollHeight-height
+        }
+        componentWillUnmount(){
+            clearInterval(this.timer)
+        }
+
+
+        render() {
+            return (
+                <div className={'list'} ref={c=>this.input1=c}>
+                    {this.state.newArr.map((item, index) => {
+                        return <div className={'news'} key={index}>{item}</div>
+                    })}
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<NewList/>, document.getElementById('test'))
+
+</script>
+
+</body>
+</html>

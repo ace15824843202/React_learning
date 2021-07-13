@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="UTF-8">
+	<title>Hello React</title>
+</head>
+<body>
+	<div id="test"></div>
+
+
+	
+	<script type="text/javascript" src="../js/react.development.js"></script><!-- react 核心库js -->
+	<script type="text/javascript" src="../js/react-dom.development.js"></script><!-- 支持操作dom的js -->
+	<script type="text/javascript" src="../js/babel.min.js"></script> <!-- 将JSX转换为JS -->
+	<!-- 此处一定是babel -->
+	<script type="text/babel">
+		class Weather extends React.Component{
+			//调用1次
+			constructor(prop) {
+				super(prop);
+				this.state={isHot:false}
+				this.handleClick = this.handleClick.bind(this)
+			}
+			handleClick(){
+				this.setState({
+					isHot:!this.state.isHot
+				})
+				this.test();
+			}
+			test(){
+				//这里的test不用在构造函数里bind重新赋值，因为是实例直接调用this就指向Weather
+				console.log(this)
+			}
+			//调用1+n次，初始化一次，n状态更新次数
+			render(){
+				const {isHot} = this.state
+				return(
+						//onClick 在这里面做为一个回调，而不是实例Weather实例调用
+						// 所以this没有指向Weather，又因为类中的方法默认开启了严格模式所以不指向windows如果
+						//不在构造函数里bind（this），则这个this为undefined
+						<div onClick={this.handleClick}>
+							今天的天气很{isHot?'炎热':'凉爽'}
+						</div>
+				)
+			}
+		}
+
+		ReactDOM.render(<Weather/>,document.getElementById('test'))
+
+		
+	</script>
+
+</body>
+</html>

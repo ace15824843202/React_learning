@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>引出生命周期新</title>
+</head>
+<body>
+<div id="test"></div>
+
+
+<script type="text/javascript" src="../js_new/react.development.js"></script><!-- react 核心库js -->
+<script type="text/javascript" src="../js_new/react-dom.development.js"></script><!-- 支持操作dom的js -->
+<script type="text/javascript" src="../js_new/babel.min.js"></script> <!-- 将JSX转换为JS -->
+<!-- 此处一定是babel -->
+<script type="text/babel">
+    class A extends React.Component {
+        state = {carName: '奔驰'}
+        changeCar = () => {
+            //卸载组件
+           this.setState({carName:'宝马'})
+        }
+
+
+        //初次渲染，更新时
+        render() {
+            return (
+                <div>
+                    <div>我是A组件</div>
+                    <button onClick={this.changeCar}>改变车</button>
+                    <B carName={this.state.carName}/>
+
+                </div>
+            )
+        }
+    }
+    class B extends React.Component{
+        constructor(props) {
+            super(props);
+            console.log('----constructor')
+            this.state={carName:'你猜一猜'}
+        }
+
+       /* //从父组件将要接收新的prop时触发，第一次不算
+        UNSAFE_componentWillReceiveProps(props){
+            console.log('----componentWillReceiveProps',props)
+        }*/
+       /* //组件挂载完毕==>一般在这个钩子做一些初始化的事，例如：开启定时器，发送网络请求，订阅消息
+        UNSAFE_componentWillMount() {
+            console.log('----componentWillMount')
+        }*/
+
+        //新版本的钩子---state的值永远取决于props,（慎用，会造成代码冗余，不好维护）
+        static getDerivedStateFromProps(props,state){
+            console.log('----getDerivedStateFormProps',props)
+            return null
+        }
+
+        //组件挂载完毕==>一般在这个钩子做一些初始化的事，例如：开启定时器，发送网络请求，订阅消息
+        componentDidMount() {
+            console.log('----componentDidMount')
+        }
+
+
+        //控制组件更新的阀门（this.forceUpdate（）强制更新不走这个生命周期）
+        shouldComponentUpdate(){
+            console.log('-----shouldComponentUpdate')
+            return true
+        }
+       /* //将要更新
+        UNSAFE_componentWillUpdate(){
+            console.log('----componentWillUpdate')
+        }*/
+
+        //最后一次更新前的获取快照值 ，获取之前的滚动高度。。。。
+        getSnapshotBeforeUpdate(){
+            console.log('----getSnapshotBeforeUpdate')
+            return 'atguigu'
+
+        }
+
+        //更新完成的钩子
+        componentDidUpdate(prevProps,prevState,snapshotValue){
+            console.log('------componentDidUpdate',prevProps,prevState,snapshotValue)
+        }
+        //组件将要卸载 ==>一般在这个钩子中做些收尾的事，例如：关闭定时器，取消订阅消息
+        componentWillUnmount() {
+            console.log('-----componentWillUnmount')
+        }
+        render(){
+            console.log('----render')
+            return(
+                <div>我是B组件，state值为:{this.state.carName},car:{this.props.carName}</div>
+            )
+        }
+    }
+
+    ReactDOM.render(<A/>, document.getElementById('test'))
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="application/javascript">
+    function sum(a,b,c){
+         console.log(a+b+c)
+    }
+
+    sum(1,2,3)
+
+    //函数柯里化:通过函数调用继续返回的函数的方式，实现多次接收参数最后统一处理的函数编码形式
+    function sumK(a){
+        return (b)=>{
+            return (c)=>{
+                console.log(a+b+c)
+            }
+        }
+    }
+    sumK(1)(2)(3)
+    
+</script>
+
+
+</body>
+</html>

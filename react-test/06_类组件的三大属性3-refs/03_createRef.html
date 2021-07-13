@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello React</title>
+</head>
+<body>
+<div id="test"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+
+
+<script type="text/javascript" src="../js/react.development.js"></script><!-- react 核心库js -->
+<script type="text/javascript" src="../js/react-dom.development.js"></script><!-- 支持操作dom的js -->
+<script type="text/javascript" src="../js/babel.min.js"></script> <!-- 将JSX转换为JS -->
+<!-- 此处一定是babel -->
+<script type="text/babel">
+    class Demo extends React.Component {
+        /*
+        * 调用React.createRef()会创建一个容器用来存储被ref标识的节点
+        *
+        * */
+        myRef = React.createRef()
+
+        myAlert = () => {
+            // console.log(this.myRef) //{current:input},存的键值队的形式
+            alert(this.myRef.current.value)
+        }
+
+        render() {
+            return (
+                <div>
+
+                        <input type="text" ref={this.myRef}/>
+                        <button onClick={this.myAlert}>输入完弹窗</button>
+
+                </div>
+
+            )
+        }
+    }
+
+    ReactDOM.render(<Demo/>, document.getElementById('test'))
+
+
+</script>
+
+</body>
+</html>

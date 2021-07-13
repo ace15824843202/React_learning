@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>key</title>
+    <style>
+        .list {
+            height: 150px;
+            width: 250px;
+            background: lightblue;
+            overflow: auto;
+        }
+
+        .news {
+            height: 30px
+        }
+    </style>
+</head>
+<body>
+<div id="test"></div>
+
+
+<script type="text/javascript" src="../js_new/babel.min.js"></script> <!-- 将JSX转换为JS -->
+<script type="text/javascript" src="../js_new/react.development.js"></script><!-- react 核心库js -->
+<script type="text/javascript" src="../js_new/react-dom.development.js"></script><!-- 支持操作dom的js -->
+<!-- 此处一定是babel -->
+<script type="text/babel">
+    /*
+    *1.react/vue中的key有什么用，原理是什么？key时虚拟dom的标识，在更新显示时有着至关重要的作用
+    *2.为什么遍历列表最好不要用index当作key
+    *  1)虚拟dom中Key的作用
+    *   数据在发生变化时，新旧虚拟DOM进行Diff比较
+    *   a。旧虚拟DOM中找到️虚拟DOM的key，比较新旧虚拟DOM
+    *      (1)若虚拟DOM中的内容没有变，直接使用之前的真实DOM
+    *      (2)若虚拟DOM中的内容变了，则生成新的真实DOM，，随之替换页面之前的真实DOM
+    *   b.旧虚拟DOM中未找到️虚拟DOM的key，根据数据创建新的真实dom。随之渲染在页面里
+    *  2）用index做为key可能引发的问题
+    *       a。若对数据进行，逆序添加，逆序删除等破坏顺序的操作
+    *                  ===》会产生没有必要的真实DOM更新===》效率低
+    *       b。如果结构中还包含输入类的DOM：
+    *                  ===》会产生错误DOM更新===》界面有问题
+    *       c。若不存在，逆序添加，逆序删除等破坏顺序的操作，仅用户渲染列表展示，使用inde做为key没有问题
+    *   3）
+    *
+    *
+    *
+    * */
+    class NewList extends React.Component {
+        state = {newArr: []}
+
+        componentDidMount() {
+
+            this.timer= setInterval(() => {
+                let {newArr} = this.state
+                const news = '新闻' + (newArr.length + 1)
+                this.setState({newArr: [news,...newArr]})
+            }, 1000)
+        }
+        getSnapshotBeforeUpdate(){
+            return this.input1.scrollHeight
+        }
+        componentDidUpdate(prevProps,prevState,height){
+            this.input1.scrollTop+=this.input1.scrollHeight-height
+        }
+        componentWillUnmount(){
+            clearInterval(this.timer)
+        }
+
+
+        render() {
+            return (
+                <div className={'list'} ref={c=>this.input1=c}>
+                    {this.state.newArr.map((item, index) => {
+                        //有输入框的节点用key出现界面错乱
+                        return <div className={'news'} key={index}>{item}<input type="text"/></div>
+                        // return <div className={'news'} key={item}>{item}<input type="text"/></div>
+                    })}
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<NewList/>, document.getElementById('test'))
+
+</script>
+
+</body>
+</html>

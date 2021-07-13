@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello React</title>
+</head>
+<body>
+<div id="test"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+
+
+<script type="text/javascript" src="../js/react.development.js"></script><!-- react 核心库js -->
+<script type="text/javascript" src="../js/react-dom.development.js"></script><!-- 支持操作dom的js -->
+<script type="text/javascript" src="../js/babel.min.js"></script> <!-- 将JSX转换为JS -->
+<!-- 此处一定是babel -->
+<script type="text/babel">
+    class Demo extends React.Component {
+        //字符串形式的refs有效率问题
+
+        myAlert=()=>{
+            const {input1} = this.refs
+            alert(input1.value)
+        }
+        myAlert2 = ()=>{
+            const {input2} = this.refs
+            console.log( input2)
+            input2.onblur=()=>{
+                alert(input2.value)
+            }
+        }
+        render() {
+            return (
+                <div>
+
+                    <div>
+                        <input type="text" ref="input1"/>
+                        <button onClick={this.myAlert}>输入完弹窗</button>
+
+                    </div>
+                    <div>
+                        <input type="text" ref="input2" onBlur={this.myAlert2}/>
+
+                    </div>
+                </div>
+
+            )
+        }
+    }
+
+    ReactDOM.render(<Demo/>,document.getElementById('test'))
+
+
+</script>
+
+</body>
+</html>

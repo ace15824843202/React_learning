@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello React</title>
+</head>
+<body>
+
+
+<script type="text/javascript" src="../js/react.development.js"></script><!-- react 核心库js -->
+<script type="text/javascript" src="../js/react-dom.development.js"></script><!-- 支持操作dom的js -->
+<script type="text/javascript" src="../js/babel.min.js"></script> <!-- 将JSX转换为JS -->
+<!-- 此处一定是babel -->
+<script type="text/babel">
+    const personList = [
+        {name: 'zhangSan', sex: 'female', age: 18},
+        {name: 'liSa', sex: 'male', age: 18},
+        {name: 'suSan', sex: 'female', age: 18},
+    ]
+    class PersonItem extends React.Component {
+        render() {
+            const {name, sex, age} = this.props
+            return (
+                <ul>
+                    <li>姓名：{name}</li>
+                    <li>性别：{sex}</li>
+                    <li>年龄：{age}</li>
+                </ul>
+            )
+        }
+    }
+
+    class Person extends React.Component {
+        render() {
+            const {personList} = this.props
+            return (
+                <div>
+                    {
+                    personList.map((item, index) => {
+                    return (
+                        <PersonItem {...item} key={index}/>
+
+                    )
+                })
+                    }
+                </div>
+
+            )
+        }
+    }
+
+
+
+    ReactDOM.render(<Person personList={personList}/>, document.getElementById('test'))
+
+
+</script>
+
+</body>
+</html>

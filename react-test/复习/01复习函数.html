@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="application/javascript">
+    /*
+    * 1.类中的constructor不是必须写的，若要初始化就要写
+    * 2.子继承父要写super
+    * 3.方法在类的原型对象上
+    * 4.this指向调用的实力对象上
+    * */
+
+    class Person{
+        //this指向---Person的实例对象
+        constructor(name,age) {
+            this.name=name;
+            this.age =age;
+        }
+        //一般方法-在Person类的原型对象上__proto__，供实例使用
+        speak(){
+            console.log(`我的名字叫${this.name},今年${this.age}岁`)
+        }
+    }
+    //创建Person的实例对象
+    const p1 = new Person('张三',24)
+    const p2 = new Person('李四',20)
+    console.log(p1)
+    console.log(p2)
+    p1.speak();
+    p2.speak();
+
+
+    //Student继承Person
+    class Student extends Person{
+        constructor(name,age,grade) {
+            super(name,age);//继承父类已经申明的属性
+            this.grade = grade;
+        }
+        speak(){
+            console.log(`我的名字叫${this.name},今年${this.age}岁,年纪${this.grade}`)
+        }
+    }
+    const s1 = new Student('王武','18','高一')
+    console.log(s1)
+    //若Student中没有speak方法，就会按照原型链往上找，找到父类Person的speak方法
+    //若要输出自己的speak方法，在类里进行重写
+    s1.speak()
+    
+    class Car{
+        constructor(name) {
+            this.name=name;
+            // this.wheel =4
+        }
+        //这个语句就相当于上面注视语句，初始化一个属性wheel并赋值为4
+        wheel =4
+        static demo = 5
+    }
+    // Car.demo = 5 是添加到类上
+    const car1 = new Car('奔驰')
+    console.log(car1)
+</script>
+
+</body>
+</html>

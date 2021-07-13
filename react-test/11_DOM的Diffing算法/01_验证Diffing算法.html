@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验证Diff算法</title>
+
+</head>
+<body>
+<div id="test"></div>
+
+
+<script type="text/javascript" src="../js_new/babel.min.js"></script> <!-- 将JSX转换为JS -->
+<script type="text/javascript" src="../js_new/react.development.js"></script><!-- react 核心库js -->
+<script type="text/javascript" src="../js_new/react-dom.development.js"></script><!-- 支持操作dom的js -->
+<!-- 此处一定是babel -->
+<script type="text/babel">
+    class Time extends React.Component {
+        state = {date:new Date()}
+
+        componentDidMount() {
+
+           this.timer= setInterval(() => {
+                this.setState({date:new Date()})
+            }, 1000)
+        }
+
+
+        componentWillUnmount(){
+            clearInterval(this.timer)
+        }
+
+        //diffing最小的比较节点是标签，比较多层
+        render() {
+            return (
+                <div className={'list'} ref={c=>this.input1=c}>
+                    <h2>Hello</h2>
+                    <input type="text"/>
+                    <div>现在的时间是:{this.state.date.toTimeString()}</div>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Time/>, document.getElementById('test'))
+
+</script>
+
+</body>
+</html>

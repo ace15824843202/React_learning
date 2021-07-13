@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>引出生命周期旧</title>
+</head>
+<body>
+<div id="test"></div>
+
+
+<script type="text/javascript" src="../js/react.development.js"></script><!-- react 核心库js -->
+<script type="text/javascript" src="../js/react-dom.development.js"></script><!-- 支持操作dom的js -->
+<script type="text/javascript" src="../js/babel.min.js"></script> <!-- 将JSX转换为JS -->
+<!-- 此处一定是babel -->
+<script type="text/babel">
+    class A extends React.Component {
+        state = {carName: '奔驰'}
+        changeCar = () => {
+            //卸载组件
+           this.setState({carName:'宝马'})
+        }
+
+
+        //初次渲染，更新时
+        render() {
+            return (
+                <div>
+                    <div>我是A组件</div>
+                    <button onClick={this.changeCar}>改变车</button>
+                    <B carName={this.state.carName}/>
+
+                </div>
+            )
+        }
+    }
+    class B extends React.Component{
+        //从父组件将要接收新的prop时触发，第一次不算
+        componentWillReceiveProps(props){
+            console.log('----componentWillReceiveProps',props)
+        }
+        //组件挂载完毕==>一般在这个钩子做一些初始化的事，例如：开启定时器，发送网络请求，订阅消息
+        componentDidMount() {
+            console.log('----componentDidMount')
+        }
+
+        //组件将要卸载 ==>一般在这个钩子中做些收尾的事，例如：关闭定时器，取消订阅消息
+        componentWillUnmount() {
+            console.log('-----componentWillUnmount')
+        }
+        //控制组件更新的阀门（this.forceUpdate（）强制更新不走这个生命周期）
+        shouldComponentUpdate(){
+            console.log('-----shouldComponentUpdate')
+            return true
+        }
+        //将要更新
+        componentWillUpdate(){
+            console.log('----componentWillUpdate')
+        }
+        //更新完成的钩子
+        componentDidUpdate(){
+            console.log('------componentDidUpdate')
+        }
+        render(){
+            return(
+                <div>我是B组件，car:{this.props.carName}</div>
+            )
+        }
+    }
+
+    ReactDOM.render(<A/>, document.getElementById('test'))
+
+</script>
+
+</body>
+</html>

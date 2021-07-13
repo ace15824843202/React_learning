@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="application/javascript">
+
+
+    class Person{
+        //this指向---Person的实例对象
+        constructor(name,age) {
+            this.name=name;
+            this.age =age;
+        }
+        //一般方法-在Person类的原型对象上__proto__，供实例使用
+        //
+        speak(){
+            console.log(this)
+        }
+    }
+    //创建Person的实例对象
+    const p1 = new Person('张三',24)
+    p1.speak()
+    const x = p1.speak  //this---Perosn实例对象p1(这属于实例调用)
+    x()//this===undefined  在类中自动开启'严格模式'，this不指向window，x也不是Person的实例对象所以是undefined
+
+
+    function demo(){
+        console.log(this)
+    }
+    demo()//this 指向windows
+    function  demo2(){
+        'use strict'
+        console.log(this)
+    }
+    demo2() // this---undefined
+</script>
+
+</body>
+</html>

@@ -1,22 +1,34 @@
 import React, {Component} from 'react';
 import './index.css'
-
 class Item extends Component {
-    static defaultProps = {
-        value:'test'
+    state={enter:false}
+
+    handleChange=(id)=>{
+        return (e)=>{
+            this.props.changeChecked(id,e.target.checked)
+        }
+
     }
-    handleChange=(e)=>{
-        console.log('我勾选了',e.target.checked)
+    handleMouse=(flag)=>{
+        return ()=>{
+            this.setState({enter:flag})
+        }
+    }
+    handleDel=(id)=>{
+        return ()=>{
+            this.props.delChecked(id)
+        }
     }
     render() {
-        const {value} = this.props
+        const {id,value,checked} = this.props
+        const {enter} = this.state
         return (
-            <li>
+            <li style={{background:enter?'#ddd':'#fff'}} onMouseEnter={this.handleMouse(true)} onMouseLeave={this.handleMouse(false)}>
                 <label>
-                    <input type="checkbox" onChange={this.handleChange}/>
+                    <input type="checkbox" onChange={this.handleChange(id)} defaultChecked={checked}/>
                     <span>{value}</span>
                 </label>
-                <button className="btn btn-danger" style={{display:"none"}}>删除</button>
+                <button className="btn btn-danger" style={{display:enter?'block':'none'}} onClick={this.handleDel(id)}>删除</button>
             </li>
         );
     }

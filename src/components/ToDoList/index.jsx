@@ -3,23 +3,14 @@ import Item from "../Item";
 import './index.css'
 
 class ToDoList extends Component {
-    state = {
-        arr: []
-    }
-
-
-    componentDidMount() {
-        const {arr} = this.state
-        this.setState({arr: [...arr, this.props.value]})
-    }
 
     render() {
-        const {arr} = this.state
+        const {todoList,changeChecked,delChecked} = this.props
         return (
                 <ul className="todo-main" >
                     {
-                        arr.map((item) => {
-                            return <Item key={item} value={item}/>
+                        todoList.map((item) => {
+                            return <Item  changeChecked={changeChecked}  delChecked={delChecked} key={item.id} {...item}/>
                         })
                     }
 

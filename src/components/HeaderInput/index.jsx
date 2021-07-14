@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import './index.css'
+import PropTypes from 'prop-types'
 
 class HeaderInput extends Component {
-    inputRef = React.createRef()
+    static  propTypes = {
+        addTodo: PropTypes.func.isRequired,
+
+    }
+
     handleKeyUp = (e) => {
         if (e.target.value.trim() === '') {
             alert('请输入内容')
@@ -18,7 +23,7 @@ class HeaderInput extends Component {
     render() {
         return (
             <div className="todo-header">
-                <input ref={this.inputRef} onKeyUp={this.handleKeyUp} type="text" placeholder="请输入你的任务名称，按回车键确认"/>
+                <input onKeyUp={this.handleKeyUp} type="text" placeholder="请输入你的任务名称，按回车键确认"/>
             </div>
         );
     }

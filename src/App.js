@@ -33,6 +33,7 @@ class App extends Component {
             return item
         })
         this.setState({todoList: changeObj})
+        //修改footer的值
         const checkList = todoList.filter(item => {
             if (item.checked) {
                 return item

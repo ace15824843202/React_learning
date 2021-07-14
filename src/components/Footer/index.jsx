@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 
 import './index.css'
 
 class Footer extends Component {
+    static  propTypes = {
+        clearChecked:PropTypes.func.isRequired,
+        len:PropTypes.number,
+        todoList: PropTypes.array
+    }
     check = React.createRef()
 
     componentDidUpdate(prevProps, prevState, snapshot) {

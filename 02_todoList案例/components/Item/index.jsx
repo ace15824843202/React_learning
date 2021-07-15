@@ -11,7 +11,10 @@ class Item extends Component {
 
     handleChange = (id) => {
         return (e) => {
+
             this.props.changeChecked(id, e.target.checked)
+
+
         }
 
     }
@@ -22,7 +25,9 @@ class Item extends Component {
     }
     handleDel = (id) => {
         return () => {
-            this.props.delChecked(id)
+            if (window.confirm('确定删除么？')) {
+                this.props.delChecked(id)
+            }
         }
     }
 
@@ -33,7 +38,7 @@ class Item extends Component {
             <li style={{background: enter ? '#ddd' : '#fff'}} onMouseEnter={this.handleMouse(true)}
                 onMouseLeave={this.handleMouse(false)}>
                 <label>
-                    <input type="checkbox" onChange={this.handleChange(id)} defaultChecked={checked}/>
+                    <input type="checkbox" onChange={this.handleChange(id)} checked={checked}/>
                     <span>{value}</span>
                 </label>
                 <button className="btn btn-danger" style={{display: enter ? 'block' : 'none'}}

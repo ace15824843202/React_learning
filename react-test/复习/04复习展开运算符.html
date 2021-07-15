@@ -17,7 +17,7 @@
     //做为函数的接受参数(参数是未知个数时)
     function sum(...number){
         console.log(number)//是个数组
-        //数组求和reduce
+        //数组求和reduce,统计，筛选最值
       return  number.reduce((preValue,currentValue)=>{
             return preValue+currentValue
         })

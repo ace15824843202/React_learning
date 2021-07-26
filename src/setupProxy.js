@@ -12,10 +12,5 @@ module.exports = function (app){
             pathRewrite:{'^/api1':''}
             //重写请求路径/api1替换为''（因为api这个路径是你自己加的一个标识，后端接口路径没有这个）
         }),
-        proxy('/api2',{
-            target:'http://localhost:5001',
-            changeOrigin:true,
-            pathRewrite:{'^/api2':''}
-        })
     )
 }

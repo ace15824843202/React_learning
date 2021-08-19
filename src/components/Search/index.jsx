@@ -6,11 +6,14 @@ class Search extends Component {
         //解构赋值连续写法 input没有被定义 console.log(input)报错
         const {input:{value}} = this
         console.log(value)
+        this.props.updateState({showTip:false,isLoading: true})
         axios.get(`http://localhost:3000/api1/search/users?q=${value}`).then(res=>{
-            this.props.getAvatar(res.data)
+            this.props.updateState({isLoading: false,list:res.data.items})
             console.log('res',res.data)
         },error=>{
-            console.log('error',error)
+            console.log(error)
+            this.props.updateState({isLoading: false,err:error.message})
+
         })
 
     }

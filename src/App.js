@@ -5,17 +5,17 @@ import ImageList from "./components/ImageList";
 import './App.css'
 
 class App extends Component {
-    state={list:[]}
-    getAvatar=(res)=>{
-        this.setState({list:res.items})
+    state = {list: [], showTip: true, isLoading: false, err: ""}
+    updateState = (stateObj) => {
+        this.setState(stateObj)
     }
 
     render() {
         return (
 
             <div className="container">
-                <Search getAvatar={this.getAvatar}/>
-                <ImageList avatar={this.state.list}/>
+                <Search updateState={this.updateState}/>
+                <ImageList {...this.state}/>
             </div>
 
         );

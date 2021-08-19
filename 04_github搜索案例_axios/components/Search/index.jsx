@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PubSub from 'pubsub-js'
 import axios from "axios";
 
 class Search extends Component {
@@ -7,13 +6,13 @@ class Search extends Component {
         //解构赋值连续写法 input没有被定义 console.log(input)报错
         const {input:{value}} = this
         console.log(value)
-        PubSub.publish('githubSearch',{showTip:false,isLoading: true})
+        this.props.updateState({showTip:false,isLoading: true})
         axios.get(`http://localhost:3000/api1/search/users?q=${value}`).then(res=>{
-            PubSub.publish('githubSearch',{isLoading: false,list:res.data.items})
+            this.props.updateState({isLoading: false,list:res.data.items})
             console.log('res',res.data)
         },error=>{
             console.log(error)
-            PubSub.publish('githubSearch',{isLoading: false,err:error.message})
+            this.props.updateState({isLoading: false,err:error.message})
 
         })
 

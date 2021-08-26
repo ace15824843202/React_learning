@@ -11,8 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   monospace;
 }
-/*应该有bootstrap的缘故，需要加高权重!important*/
-.activeClass{
-  color:#fff!important;
-  background-color: orange!important;
-}

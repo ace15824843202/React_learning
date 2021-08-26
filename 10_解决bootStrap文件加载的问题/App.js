@@ -9,9 +9,10 @@ import MyNavLink from "./components/MyNavLink";
 
 /*
 解决多级路径刷新页面样式丢失的问题
-    1.默认使用模糊匹配（【输入的路径】必须包含要【匹配的路径】，且顺序要一致）
-    2.开启严格匹配：<Route exact path="/home" component={Home}/>
-    3.严格匹配不要随便开启，需要再开，有些时候开启会导致无法继续匹配二级路由
+例如：<Route path="/test/about" component={About}/>
+* 1.public/index.html 中 引入样式时不写（./和../）写/（常用）
+* 2.public/index.html 中 引入样式时不写（./和../）写%PUBLIC_URL%（常用，只能在react脚手架里用）
+* 3.使用hashRouter #后面的都不会带给服务器
 * */
 
 class App extends Component {
@@ -31,12 +32,8 @@ class App extends Component {
                         <div className="list-group">
                             {/*编写路由链接*/}
                             {/*NavLink有高亮效果，而Link没有，可以添加activeClassName*/}
-                            <MyNavLink to="/about">About</MyNavLink>
-                            {/*默认模糊匹配*/}
-                            <MyNavLink to="/home">Home</MyNavLink>
-                            <MyNavLink to="/home/a/b">Home/a/b</MyNavLink>
-                            {/*这个模糊匹配不上*/}
-                            <MyNavLink to="/a/home/b">/a/home/b</MyNavLink>
+                            <MyNavLink to="/test/about">About</MyNavLink>
+                            <MyNavLink to="/test/home">Home</MyNavLink>
                         </div>
                     </div>
                     <div className="col-xs-6">
@@ -44,11 +41,8 @@ class App extends Component {
                             <div className="panel-body">
                                 {/*注册路由*/}
                                 <Switch>
-                                    {/*严格匹配*/}
-                                    <Route exact path="/about" component={About}/>
-                                    <Route exact path="/home" component={Home}/>
-                                    {/*<Route path="/about" component={About}/>*/}
-                                    {/*<Route path="/home" component={Home}/>*/}
+                                    <Route path="/test/about" component={About}/>
+                                    <Route path="/test/home" component={Home}/>
                                 </Switch>
                             </div>
                         </div>

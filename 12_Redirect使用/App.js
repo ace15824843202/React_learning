@@ -6,12 +6,15 @@ import About from "./pages/About"
 //一般组件
 import Header from "./components/Header"
 import MyNavLink from "./components/MyNavLink";
-
 /*
-嵌套路由
-* 1.注册子路由时要写上父路由的path值
-* 2.路由的匹配是按照注册路由的顺序进行的
-* */
+Redirect的使用
+* 1.一般写在所有路由注册的最下方，当所有路由都无法匹配时，跳转到Redirect指定的路由
+     <Switch>
+        <Route path="/about" component={About}/>
+        <Route path="/home" component={Home}/>
+        <Redirect to="/about"/>
+      <Switch>
+*/
 
 class App extends Component {
 

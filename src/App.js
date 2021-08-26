@@ -1,48 +1,34 @@
 import React, {Component} from 'react';
-import {NavLink,Route} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 //路由页面组件 没有传props也能收到props里面有{history,match,location}
 import Home from "./pages/Home"
 import About from "./pages/About"
+import Test from "./pages/Test"
 //一般组件
 import Header from "./components/Header"
+import MyNavLink from "./components/MyNavLink";
 
 /*
-路由的基本使用
-* 1.明确好界面中的导航区、展示区
-* 2.导航区的a标签改成Link标签
-* <Link to ="/xxx">Demo<Link/>
-* 3.展示区Route标签进行路径匹配
-*   <Route path="/xxx" component={Demo} />
-* 4.<App>的最外层包裹一个<BrowserRouter/>或<HashRouter/>
-*
-* */
-/*
-路由组件和一般组件的区别
-* 1.写法不同
-    一般组件: <Demo/>
-    路由组件：<Route path="/xxx" component={Demo} />
-* 2.存放位置不同：
-    一般组件:components
-    路由组件：pages
-* 3.接收到的props不同：
-    一般组件：写组件传递什么接收什么
-    路由组件：接收到固定的三个属性
-            history:
-                go: ƒ go(n)
-                goBack: ƒ goBack()
-                goForward: ƒ goForward()
-                push: ƒ push(path, state)
-                replace: ƒ replace(path, state)
-             location:
-                pathname: "/about"
-                search: ""
-                state: undefined
-             match:
-                params: {}
-                path: "/about"
-                url: "/about"
+navLink与NavLink封装
+    1.NavLink可以实现路由链接高亮，通过activeClassName设置样式
+    2.标签体内容是一个特殊的标签属性
+    3.通过this.props.children可以获取标签体内容
 
-* */
+ */
+
+/*
+Switch的使用
+    1.通常情况下，path和component是一一对应的关系
+    2.如果path对应多个组件，匹配到了第一个，也会继续向下匹配，展示多个组件。效率低下
+         <Route path="/about" component={About}/>
+         <Route path="/home" component={Home}/>
+          <Route path="/aba" component={aba}/>
+          <Route path="/home" component={Test}/>
+
+    3.Switch可以提高路由匹配的效率（单一匹配）,匹配到了就不会继续向下匹配
+
+ */
+
 
 class App extends Component {
 
@@ -61,16 +47,19 @@ class App extends Component {
                         <div className="list-group">
                             {/*编写路由链接*/}
                             {/*NavLink有高亮效果，而Link没有，可以添加activeClassName*/}
-                            <NavLink activeClassName="activeClass" className="list-group-item" to="/about">About</NavLink>
-                            <NavLink activeClassName="activeClass" className="list-group-item" to="/home">Home</NavLink>
+                            <MyNavLink to="/about">About</MyNavLink>
+                            <MyNavLink to="/home">Home</MyNavLink>
                         </div>
                     </div>
                     <div className="col-xs-6">
                         <div className="panel">
                             <div className="panel-body">
                                 {/*注册路由*/}
-                                <Route path="/about" component={About}/>
-                                <Route path="/home" component={Home}/>
+                                <Switch>
+                                    <Route path="/about" component={About}/>
+                                    <Route path="/home" component={Home}/>
+                                    <Route path="/home" component={Test}/>
+                                </Switch>
                             </div>
                         </div>
                     </div>

@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
-import {Switch, Route, Redirect} from 'react-router-dom'
+import {Switch, Route,Redirect} from 'react-router-dom'
+//路由页面组件 没有传props也能收到props里面有{history,match,location}
 import Home from "./pages/Home"
 import About from "./pages/About"
+//一般组件
 import Header from "./components/Header"
 import MyNavLink from "./components/MyNavLink";
 
 /*
-params参数
-    路由链接（携带参数）： <Link to={`/home/message/detailed/1/你好`} >你好</Link>
-    注册路由（声明接收）： <Route path="/home/message/detailed/:id/:title" component={Detailed}/>
-    接受参数：const {id,title} = this.props.match.params
-*/
+嵌套路由
+* 1.注册子路由时要写上父路由的path值
+* 2.路由的匹配是按照注册路由的顺序进行的
+* */
 
 class App extends Component {
 

@@ -6,26 +6,17 @@ import Header from "./components/Header"
 import MyNavLink from "./components/MyNavLink";
 
 /*
-params传递参数 （最常用）
+params参数
     路由链接（携带参数）： <Link to={`/home/message/detailed/1/你好`} >你好</Link>
     注册路由（声明接收）： <Route path="/home/message/detailed/:id/:title" component={Detailed}/>
     接受参数：const {id,title} = this.props.match.params
-
-search传递参数
+search参数
     路由链接（携带参数）： <Link to={`/home/message/detailed?id=1&title=你好`} >你好</Link>
     注册路由（无需声明接收）： <Route path="/home/message/detailed" component={Detailed}/>
     接受参数：const searchParams = this.props.location.search
             const {id, title} = qs.parse(searchParams.slice(1))
     备注：获取search是urlencoded编码字符串，需要借助querystring解析
 
-state传递参数 （常用）
-    路由链接（携带参数）： <Link to=to={{
-                                        pathname: '/home/message/detailed',
-                                        state: {id: obj.id, title: obj.title}
-                                        }} >你好</Link>
-    注册路由（无需声明接收）： <Route path="/home/message/detailed" component={Detailed}/>
-    接受参数：const {id,title} = this.props.location.state
-    备注：刷新也可以保留住参数，参数不会显示在地址栏中
 */
 
 class App extends Component {

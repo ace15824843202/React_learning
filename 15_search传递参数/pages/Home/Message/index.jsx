@@ -23,12 +23,8 @@ class Message extends Component {
                                     {/*params传递参数*/}
                                     {/*<Link to={`/home/message/detailed/${obj.id}/${obj.title}`}>{obj.title}</Link>*/}
                                     {/*search传递参数*/}
-                                    {/*<Link to={`/home/message/detailed?id=${obj.id}&title=${obj.title}`}>{obj.title}</Link>*/}
-                                    {/*state传递参数*/}
-                                    <Link to={{
-                                        pathname: '/home/message/detailed',
-                                        state: {id: obj.id, title: obj.title}
-                                    }}>{obj.title}</Link>
+                                    <Link
+                                        to={`/home/message/detailed?id=${obj.id}&title=${obj.title}`}>{obj.title}</Link>
                                 </li>
                             )
                         })
@@ -39,7 +35,7 @@ class Message extends Component {
                 {/*params声明接受参数*/}
                 {/*<Route path="/home/message/detailed/:id/:title" component={Detailed}/>*/}
 
-                {/*state无需声明接受参数 直接注册路由即可*/}
+                {/*search无需声明接受参数 直接注册路由即可*/}
                 <Route path="/home/message/detailed" component={Detailed}/>
             </div>
 

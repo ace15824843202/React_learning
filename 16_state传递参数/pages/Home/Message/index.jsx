@@ -25,7 +25,7 @@ class Message extends Component {
                                     {/*search传递参数*/}
                                     {/*<Link to={`/home/message/detailed?id=${obj.id}&title=${obj.title}`}>{obj.title}</Link>*/}
                                     {/*state传递参数*/}
-                                    <Link replace to={{
+                                    <Link to={{
                                         pathname: '/home/message/detailed',
                                         state: {id: obj.id, title: obj.title}
                                     }}>{obj.title}</Link>

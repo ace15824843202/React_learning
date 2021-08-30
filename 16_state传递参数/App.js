@@ -6,9 +6,26 @@ import Header from "./components/Header"
 import MyNavLink from "./components/MyNavLink";
 
 /*
-    默认push路由跳转模式,压栈操作
-    replace跳转模式是替换的过程不会压栈，没有回退
+params传递参数 （最常用）
+    路由链接（携带参数）： <Link to={`/home/message/detailed/1/你好`} >你好</Link>
+    注册路由（声明接收）： <Route path="/home/message/detailed/:id/:title" component={Detailed}/>
+    接受参数：const {id,title} = this.props.match.params
 
+search传递参数
+    路由链接（携带参数）： <Link to={`/home/message/detailed?id=1&title=你好`} >你好</Link>
+    注册路由（无需声明接收）： <Route path="/home/message/detailed" component={Detailed}/>
+    接受参数：const searchParams = this.props.location.search
+            const {id, title} = qs.parse(searchParams.slice(1))
+    备注：获取search是urlencoded编码字符串，需要借助querystring解析
+
+state传递参数 （常用）
+    路由链接（携带参数）： <Link to=to={{
+                                        pathname: '/home/message/detailed',
+                                        state: {id: obj.id, title: obj.title}
+                                        }} >你好</Link>
+    注册路由（无需声明接收）： <Route path="/home/message/detailed" component={Detailed}/>
+    接受参数：const {id,title} = this.props.location.state
+    备注：刷新也可以保留住参数，参数不会显示在地址栏中
 */
 
 class App extends Component {
@@ -28,8 +45,8 @@ class App extends Component {
                         <div className="list-group">
                             {/*编写路由链接*/}
                             {/*NavLink有高亮效果，而Link没有，可以添加activeClassName*/}
-                            <MyNavLink replace to="/about">About</MyNavLink>
-                            <MyNavLink replace to="/home">Home</MyNavLink>
+                            <MyNavLink to="/about">About</MyNavLink>
+                            <MyNavLink to="/home">Home</MyNavLink>
                         </div>
                     </div>
                     <div className="col-xs-6">

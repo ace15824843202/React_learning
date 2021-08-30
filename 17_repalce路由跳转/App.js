@@ -6,8 +6,8 @@ import Header from "./components/Header"
 import MyNavLink from "./components/MyNavLink";
 
 /*
-   编程试路由
-            不用路由组件跳转（Link，NavLink），而是用this.props.history自带的api跳转 ,前进，后退
+    默认push路由跳转模式,压栈操作
+    replace跳转模式是替换的过程不会压栈，没有回退
 
 */
 
@@ -28,8 +28,8 @@ class App extends Component {
                         <div className="list-group">
                             {/*编写路由链接*/}
                             {/*NavLink有高亮效果，而Link没有，可以添加activeClassName*/}
-                            <MyNavLink  to="/about">About</MyNavLink>
-                            <MyNavLink  to="/home">Home</MyNavLink>
+                            <MyNavLink replace to="/about">About</MyNavLink>
+                            <MyNavLink replace to="/home">Home</MyNavLink>
                         </div>
                     </div>
                     <div className="col-xs-6">

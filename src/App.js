@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Button,} from 'antd'
-import {DownCircleTwoTone} from '@ant-design/icons'
-// import 'antd/dist/antd.css'
+import {Button} from 'antd'
+import { SmileTwoTone, HeartTwoTone, CheckCircleTwoTone } from '@ant-design/icons';
 
 
 class App extends Component {
@@ -11,7 +10,9 @@ class App extends Component {
             <div>
              APP.....
                 <Button type="primary"> Button</Button>
-                <DownCircleTwoTone />
+                <SmileTwoTone />
+                <HeartTwoTone twoToneColor="#eb2f96" />
+                <CheckCircleTwoTone twoToneColor="#52c41a" />
             </div>
 
         );

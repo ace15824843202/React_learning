@@ -126,5 +126,36 @@ export default withRouter(Header);
   (2) HashRouter刷新后会导致state参数丢失
 * 备注：HashRouter可以用于解决一些路径错误相关的问题
 
+## antd的按需引入+自定义主题
+* 1.安装依赖: yarn add react-app-rewired customize-cra babel-plugin-import less less-loader@7.1.0
+* 2.修改package.json
+
+      "scripts": {
+        "start": "react-app-rewired start",
+        "build": "react-app-rewired build",
+        "test": "react-app-rewired test",
+        "eject": "react-scripts eject"
+      },
+* 3.根目录下创建config-overrides.js
+
+  
+    const {override, fixBabelImports,addLessLoader} = require('customize-cra');
+    //按需引入antd的样式文件
+    module.exports = override(
+      fixBabelImports('import', {
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+        style: true,
+        }),
+      //修改主题 这里注意less-loader插件的版本不能过高，太高不支持这种写法
+      addLessLoader({
+        lessOptions: {
+        javascriptEnabled: true,//允许用js修改
+        modifyVars: {'@primary-color': '#1DA57A'},
+        },
+      }),
+    );
+
+* 4.备注：不用在组件里亲自引入样式，即：import 'antd/dist/antd.css'
   
     

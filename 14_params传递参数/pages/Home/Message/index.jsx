@@ -21,22 +21,16 @@ class Message extends Component {
                             return (
                                 <li key={obj.id}>
                                     {/*params传递参数*/}
-                                    {/*<Link to={`/home/message/detailed/${obj.id}/${obj.title}`}>{obj.title}</Link>*/}
-                                    {/*search传递参数*/}
                                     <Link
-                                        to={`/home/message/detailed?id=${obj.id}&title=${obj.title}`}>{obj.title}</Link>
+                                        to={`/home/message/detailed/${obj.id}/${obj.title}`}>{obj.title}</Link>
                                 </li>
                             )
                         })
                     }
                 </ul>
                 <hr/>
-
-                {/*params声明接受参数*/}
-                {/*<Route path="/home/message/detailed/:id/:title" component={Detailed}/>*/}
-
-                {/*search无需声明接受参数 直接注册路由即可*/}
-                <Route path="/home/message/detailed" component={Detailed}/>
+                {/*声明接受参数*/}
+                <Route path="/home/message/detailed/:id/:title" component={Detailed}/>
             </div>
 
         );

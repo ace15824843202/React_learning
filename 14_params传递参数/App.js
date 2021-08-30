@@ -10,13 +10,6 @@ params参数
     路由链接（携带参数）： <Link to={`/home/message/detailed/1/你好`} >你好</Link>
     注册路由（声明接收）： <Route path="/home/message/detailed/:id/:title" component={Detailed}/>
     接受参数：const {id,title} = this.props.match.params
-search参数
-    路由链接（携带参数）： <Link to={`/home/message/detailed?id=1&title=你好`} >你好</Link>
-    注册路由（无需声明接收）： <Route path="/home/message/detailed" component={Detailed}/>
-    接受参数：const searchParams = this.props.location.search
-            const {id, title} = qs.parse(searchParams.slice(1))
-    备注：获取search是urlencoded编码字符串，需要借助querystring解析
-
 */
 
 class App extends Component {

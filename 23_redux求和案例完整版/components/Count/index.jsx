@@ -3,7 +3,7 @@ import {Button, Select} from 'antd'
 //引入store，获取值
 import store from "../../redux/store";
 //引入createAction
-import {creatIncrementAction,creatReduceAction,createIncrementAsyncAction} from "../../redux/count_action"
+import {creatIncrementAction,creatReduceAction} from "../../redux/count_action"
 
 const {Option} = Select;
 
@@ -39,11 +39,11 @@ class Count extends Component {
         }
 
     }
-    incrementAsync = () => {
+    incrementAsyn = () => {
         const {selectVal} = this.state
-        // setTimeout(() => {
-            store.dispatch(createIncrementAsyncAction(selectVal*1,1000))
-        // }, 1000)
+        setTimeout(() => {
+            store.dispatch(creatIncrementAction(selectVal*1))
+        }, 1000)
 
 
     }
@@ -64,7 +64,7 @@ class Count extends Component {
                 &nbsp;<Button onClick={this.increment}>+</Button>
                 &nbsp;<Button onClick={this.reduce}>-</Button>
                 &nbsp;<Button onClick={this.incrementIfOdd}>求和为奇数加</Button>
-                &nbsp;<Button onClick={this.incrementAsync}>异步+</Button>
+                &nbsp;<Button onClick={this.incrementAsyn}>异步+</Button>
 
             </div>
         );

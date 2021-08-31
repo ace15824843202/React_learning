@@ -157,5 +157,50 @@ export default withRouter(Header);
     );
 
 * 4.备注：不用在组件里亲自引入样式，即：import 'antd/dist/antd.css'
+
+## 求和案例redux精简版
+* 1.在src下创建redux文件夹，里面包括，store.js、count_reducer.js
+* 2.在store.js中（该文件专门用于暴露一个store对象，整个应用只有一个store对象）
+```
+  //引入createStore,专门用于创建redux中最为核心的store对象
+  import {createStore} from "redux";
+  //引入为Count组件服务的reducer
+  import countReducer from './count_reducer'
+
+export default createStore(countReducer)
+```
+* 3.count_reducer.js中（该文件用于创建一个为Count组件服务的reducer,reducer的本质就是一个函数）
+    
+  1）函数接收两个参数：preState，action，返回加工后的状态
+  
+  2）reducer有两个作用：初始化状态，加工状态
+  
+  3）reducer被第一次调用时，是store自动触发的,
+  
+      传递的preState是underfined,
+  
+      传递的action是:{type:'@@REDUX/INIT_a.2.b.4}
+
+      注意点：只做单纯的加减操作，条件（异步加还是奇数加）放在组件里判断
+  
+  4)在index.js中检测store中的状态，一旦发生改变重新渲染<App/>
+
+```  store.subscribe(() => {
+        //React.StrictMode 检查代码里不合理的位置
+        ReactDOM.render(
+        <React.StrictMode>
+        <App store={store}/>
+        </React.StrictMode>,
+        document.getElementById('root')
+        );
+
+  })
+```
+
+## 求和案例redux完整版
+  新增文件：
+  * 1.count_action.js 专门用于创建action的对象
+  * 2.constant.js 放置由于编码疏忽写错action中的type
+
   
     

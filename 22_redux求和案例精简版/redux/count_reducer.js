@@ -7,15 +7,14 @@
 *
 * */
 //初始化
-import {INCREMENT,REDUCE} from './constant'
 const initState = 0
 export default function count_reducer(preState = initState, action) {
     //从action对象中获取：type、data
     const {type, data} = action
     switch (type) {
-        case INCREMENT:
+        case 'increment':
             return preState + data
-        case REDUCE:
+        case 'reduce':
             return preState - data
         default:
             return preState

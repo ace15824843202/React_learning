@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import {Button, Select} from 'antd'
 //引入store，获取值
 import store from "../../redux/store";
-//引入createAction
-import {creatIncrementAction,creatReduceAction} from "../../redux/count_action"
 
 const {Option} = Select;
 
@@ -25,24 +23,24 @@ class Count extends Component {
     }
     increment = () => {
         const {selectVal} = this.state
-        store.dispatch(creatIncrementAction(selectVal*1))
+        store.dispatch({type: 'increment', data: selectVal * 1})
     }
     reduce = () => {
         const {selectVal} = this.state
-        store.dispatch(creatReduceAction(selectVal*1))
+        store.dispatch({type: 'reduce', data: selectVal * 1})
     }
     incrementIfOdd = () => {
         const {selectVal} = this.state
         const count = store.getState()
         if (count % 2 !== 0) {
-            store.dispatch(creatIncrementAction(selectVal*1))
+            store.dispatch({type: 'increment', data: selectVal * 1})
         }
 
     }
     incrementAsyn = () => {
         const {selectVal} = this.state
         setTimeout(() => {
-            store.dispatch(creatIncrementAction(selectVal*1))
+            store.dispatch({type: 'increment', data: selectVal * 1})
         }, 1000)
 
 

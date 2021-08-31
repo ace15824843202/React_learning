@@ -1,55 +1,43 @@
 import React, {Component} from 'react';
 import {Button, Select} from 'antd'
-//引入store，获取值
-import store from "../../redux/store";
 
 const {Option} = Select;
 
 class Count extends Component {
-    state = { selectVal: 1}
-
-    //不在这里写，在index.js中写，好处在于尽管多个页面用到store，不用在每个页面里都写监听
-    /*
-    componentDidMount() {
-         //检测redux中状态的变化，只要变化，就调用render
-         store.subscribe(()=>{
-             this.setState({})
-         })
-     }*/
-
+    state = {count: 0, selectVal: 1}
     handleChange = (value) => {
         this.setState({selectVal: value})
 
     }
     increment = () => {
-        const {selectVal} = this.state
-        store.dispatch({type: 'increment', data: selectVal * 1})
+        const {count, selectVal} = this.state
+        this.setState({count: count + selectVal * 1})
     }
     reduce = () => {
-        const {selectVal} = this.state
-        store.dispatch({type: 'reduce', data: selectVal * 1})
+        const {count, selectVal} = this.state
+        this.setState({count: count - selectVal * 1})
     }
     incrementIfOdd = () => {
-        const {selectVal} = this.state
-        const count = store.getState()
+        const {count, selectVal} = this.state
         if (count % 2 !== 0) {
-            store.dispatch({type: 'increment', data: selectVal * 1})
+            this.setState({count: count + selectVal * 1})
         }
 
     }
     incrementAsyn = () => {
-        const {selectVal} = this.state
+        const {count, selectVal} = this.state
         setTimeout(() => {
-            store.dispatch({type: 'increment', data: selectVal * 1})
+            this.setState({count: count + selectVal * 1})
         }, 1000)
 
 
     }
 
     render() {
+        const {count} = this.state
         return (
             <div style={{margin: '20px'}}>
-                <h3>求和为:{store.getState()}</h3>
+                <h3>求和为:{count}</h3>
                 <Select defaultValue="1" style={{width: 120}} onChange={this.handleChange}>
                     <Option value="1">1</Option>
                     <Option value="2">2</Option>

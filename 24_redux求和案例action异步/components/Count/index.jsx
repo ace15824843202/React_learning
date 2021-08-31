@@ -1,42 +1,57 @@
 import React, {Component} from 'react';
 import {Button, Select} from 'antd'
+//引入store，获取值
+import store from "../../redux/store";
+//引入createAction
+import {creatIncrementAction,creatReduceAction,createIncrementAsyncAction} from "../../redux/count_action"
 
 const {Option} = Select;
 
 class Count extends Component {
-    state = {selectVal: 1}
+    state = { selectVal: 1}
+
+    //不在这里写，在index.js中写，好处在于尽管多个页面用到store，不用在每个页面里都写监听
+    /*
+    componentDidMount() {
+         //检测redux中状态的变化，只要变化，就调用render
+         store.subscribe(()=>{
+             this.setState({})
+         })
+     }*/
 
     handleChange = (value) => {
         this.setState({selectVal: value})
 
-
     }
     increment = () => {
         const {selectVal} = this.state
-        this.props.jia(selectVal * 1)
+        store.dispatch(creatIncrementAction(selectVal*1))
     }
     reduce = () => {
         const {selectVal} = this.state
-        this.props.jian(selectVal * 1)
+        store.dispatch(creatReduceAction(selectVal*1))
     }
     incrementIfOdd = () => {
         const {selectVal} = this.state
-        if (this.props.count % 2 !== 0) {
-            this.props.jia(selectVal * 1)
+        const count = store.getState()
+        if (count % 2 !== 0) {
+            store.dispatch(creatIncrementAction(selectVal*1))
         }
 
     }
     incrementAsync = () => {
         const {selectVal} = this.state
-        this.props.jiaAsync(selectVal * 1,1000)
+        // setTimeout(() => {
+            store.dispatch(createIncrementAsyncAction(selectVal*1,1000))
+        // }, 1000)
+
 
     }
 
     render() {
-        const {count} = this.props
         return (
             <div style={{margin: '20px'}}>
-                <h3>求和为:{count}</h3>
+                <h3>求和为:{store.getState()}</h3>
                 <Select defaultValue="1" style={{width: 120}} onChange={this.handleChange}>
                     <Option value="1">1</Option>
                     <Option value="2">2</Option>

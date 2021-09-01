@@ -228,7 +228,40 @@ export default createStore(countReducer)
     -mapStateToProps：映射状态，返回值是一个对象
     -mapDispatchToProps：映射操作状态的方法，返回值是一个对象
   ```
-* 3.备注：容器组件中的store是靠props传进去的，而不是在自身里import引入的
+* 3.备注1：容器组件中的store是靠props传进去的，而不是在自身里import引入的
+
+
+
+## 求和案例react-redux优化
+* 1.容器组件和ui组件整合一个文件
+* 2.mapDispatchToProps也可以是一个对象
+* 3.不用在index.js中store.subscript检测store的变化，react-redux帮你做了这一步
+* 4.当存在多个容器组件，可在index.js中引入Provider组件包裹<APP/>,它负责给每个容器组件传store的
+
+```
+import store from './redux/store'
+import {Provider} from "react-redux";
+
+ReactDOM.render(
+    <React.StrictMode>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
+);
+
+```
+* 5.一个组件要和redux组件"打交道"要经过几步
+ （1）定义好UI组件---不暴露
+  
+  (2) 引入connect生成一个容器组件，并暴露，写法如下：
+      connect(state=>(
+  {key:value}),//映射状态
+  {key:XXXXAction}，//操作状态的方法
+  )(UI组件)
+  （3)在UI组件中，通过this.props.xxxxx读取和操作状态
+  
 
 
   

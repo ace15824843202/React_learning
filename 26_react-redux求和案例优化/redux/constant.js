@@ -5,4 +5,3 @@
 
 export const INCREMENT = 'increment'
 export const REDUCE = 'reduce'
-export const ADD_PERSON = 'addPerson'

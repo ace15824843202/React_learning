@@ -263,6 +263,19 @@ ReactDOM.render(
   （3)在UI组件中，通过this.props.xxxxx读取和操作状态
   
 
+  ## 求和案例——react-redux多个组件共享数据
+  * 1.定义一个Person组件和Count组件通过redux共享数据
+  * 2.为Person组件边界：reducer、action 配置constant常量
+  * 3.重点：Person的reducer和Count的Reducer使用combineReducer进行合并,合并后的总状态是一个对象
+  * 4.交给store的是总的reducer
 
+## 求和案例——react-redux开发者工具的使用
+* 1.npm install redux-devtools-extension
   
+* 2.在store中配置
+  ```
+  import {composeWithDevTools} from 'redux-devtools-extension'
+  export default createStore(combineReducers({count:countReducer,person:personReducer}),composeWithDevTools(applyMiddleware(thunk)))
+  ```
+
     

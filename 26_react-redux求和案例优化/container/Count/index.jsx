@@ -1,7 +1,7 @@
 
 //引入connect用于🔗UI组件与redux
 import {connect} from "react-redux";
-import {creatIncrementAction, creatReduceAction,createIncrementAsyncAction} from "../../redux/actions/count"
+import {creatIncrementAction, creatReduceAction,createIncrementAsyncAction} from "../../redux/count_action"
 
 import React, {Component} from 'react';
 import {Button, Select} from 'antd'
@@ -38,11 +38,10 @@ class Count extends Component {
     }
 
     render() {
-        const {count,person} = this.props
+        const {count} = this.props
         return (
-            <div>
-                <h2>Count组件</h2>
-                <h4>求和为:{count}</h4>
+            <div style={{margin: '20px'}}>
+                <h3>求和为:{count}</h3>
                 <Select defaultValue="1" style={{width: 120}} onChange={this.handleChange}>
                     <Option value="1">1</Option>
                     <Option value="2">2</Option>
@@ -57,15 +56,41 @@ class Count extends Component {
                 &nbsp;<Button onClick={this.incrementIfOdd}>求和为奇数加</Button>
                 &nbsp;<Button onClick={this.incrementAsync}>异步+</Button>
 
-                <hr/>
-                <h4>下方人数为:{person.length}</h4>
             </div>
         );
     }
 }
 
+
+/*
+* 1.mapStateToProps函数返回的是一个对象
+* 2.返回的对象中的key就作为传递给UI组件的props的key，value就作为传递给UI组件的props的value
+* 3.mapStateToProps用于传递状态
+*
+* */
+//一般写法
+// const  mapStateToProps =state=> ({count: state})
+
+/*
+* 1.mapDispatchToProps函数返回的是一个对象
+* 2.返回的对象中的key就作为传递给UI组件的props的key，value就作为传递给UI组件的props的value
+* 3.mapStateToProps用于传递操作状态的方法
+*
+* */
+
+//一般写法
+/*const mapDispatchToProps = dispatch=> (
+{
+        jia: (number) => dispatch(creatIncrementAction(number)),
+        jian: (number) => dispatch(creatReduceAction(number)),
+        jiaAsync: (number,time) => dispatch(createIncrementAsyncAction(number,time)),
+    }
+)*/
+
+//使用connect()()创建并暴露一个Count容器组件
+//简写优化
 export default connect(
-    state=> ({...state}),
+    state=> ({count: state}),
     {
         jia:creatIncrementAction,
         jian: creatReduceAction,

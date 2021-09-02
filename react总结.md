@@ -1,4 +1,14 @@
+##jsx语法规则：
+* 1.JS表达式要用单花括号
+* 2.class -> className
+* 3.for -> htmlFor
+* 4.style={{}}
+* 5.定义虚拟DOM不要写引号，用括号，只能有一个根标签
+* 6.标签首字母
 
+    （1）若小写字母开头，则改标签转为html同名元素，若html没有该标签元素，则报错、
+    
+    （2）若大写字母开头，react就去渲染对应的组件，若没有定义该组件，就报错
 
 ## todoList 案例相关知识点
 
@@ -284,3 +294,11 @@ ReactDOM.render(
   
  * 1.reducer文件夹下新建一个index.js文件进行整合combineReducers多个组件的reducer，在store中引入
  * 2.命名规范
+
+## 打包上线
+* 1.npm run build命令打包，会出现一个build文件夹
+* 2.可以自行部署一个node服务器或者借助第三方库serve
+  
+    1）全局安装 npm i serve -g
+  
+    2）serve build

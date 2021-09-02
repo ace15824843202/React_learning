@@ -18,27 +18,27 @@ class Count extends Component {
     }
     increment = () => {
         const {selectVal} = this.state
-        this.props.creatIncrementAction(selectVal * 1)
+        this.props.jia(selectVal * 1)
     }
     reduce = () => {
         const {selectVal} = this.state
-        this.props.creatReduceAction(selectVal * 1)
+        this.props.jian(selectVal * 1)
     }
     incrementIfOdd = () => {
         const {selectVal} = this.state
         if (this.props.count % 2 !== 0) {
-            this.props.creatIncrementAction(selectVal * 1)
+            this.props.jia(selectVal * 1)
         }
 
     }
     incrementAsync = () => {
         const {selectVal} = this.state
-        this.props.createIncrementAsyncAction(selectVal * 1,1000)
+        this.props.jiaAsync(selectVal * 1,1000)
 
     }
 
     render() {
-        const {count,persons} = this.props
+        const {count,person} = this.props
         return (
             <div>
                 <h2>Count组件</h2>
@@ -58,7 +58,7 @@ class Count extends Component {
                 &nbsp;<Button onClick={this.incrementAsync}>异步+</Button>
 
                 <hr/>
-                <h4>下方人数为:{persons.length}</h4>
+                <h4>下方人数为:{person.length}</h4>
             </div>
         );
     }
@@ -67,8 +67,8 @@ class Count extends Component {
 export default connect(
     state=> ({...state}),
     {
-        creatIncrementAction,
-        creatReduceAction,
-        createIncrementAsyncAction,
+        jia:creatIncrementAction,
+        jian: creatReduceAction,
+        jiaAsync:createIncrementAsyncAction,
     }
     )(Count)

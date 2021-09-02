@@ -1,3 +1,5 @@
+
+
 ## todoList 案例相关知识点
 
 ### setState更新状态的2种写法
@@ -278,4 +280,7 @@ ReactDOM.render(
   export default createStore(combineReducers({count:countReducer,person:personReducer}),composeWithDevTools(applyMiddleware(thunk)))
   ```
 
-    
+## 求和案例——react-redux最终版
+  
+ * 1.reducer文件夹下新建一个index.js文件进行整合combineReducers多个组件的reducer，在store中引入
+ * 2.命名规范

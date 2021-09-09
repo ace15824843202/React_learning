@@ -154,22 +154,12 @@ export default withRouter(Header);
       },
 * 3.根目录下创建config-overrides.js
 
-    const {override, fixBabelImports,addLessLoader} = require('customize-cra');
-    //按需引入antd的样式文件
-    module.exports = override(
-      fixBabelImports('import', {
-        libraryName: 'antd',
-        libraryDirectory: 'es',
-        style: true,
-        }),
-      //修改主题 这里注意less-loader插件的版本不能过高，太高不支持这种写法
-      addLessLoader({
-        lessOptions: {
-        javascriptEnabled: true,//允许用js修改
-        modifyVars: {'@primary-color': '#1DA57A'},
-        },
-      }),
-    );
+  const {override, fixBabelImports,addLessLoader} = require('customize-cra'); //按需引入antd的样式文件
+  module.exports = override(
+  fixBabelImports('import', { libraryName: 'antd', libraryDirectory: 'es', style: true, }), //修改主题
+  这里注意less-loader插件的版本不能过高，太高不支持这种写法 addLessLoader({ lessOptions: { javascriptEnabled:
+  true,//允许用js修改 modifyVars: {'@primary-color': '#1DA57A'}, }, }),
+  );
 
 * 4.备注：不用在组件里亲自引入样式，即：import 'antd/dist/antd.css'
 
@@ -365,19 +355,23 @@ const About = lazy(() => import('./About'))
   **注意：** Loading组件要提前加载好，所以import Loading from "./Loading"引入
 
 ## Hooks
+
 * 1.React Hooks/Hooks是React16.8之后增加的新语法，可以让**我们在函数组件中使用state以及其他的React特性**
 * 2.三个常用的Hook :
-  
+
   (1)State Hook：React.useState()
 
   (2)Effect Hook: React.usrEffect()
-  
+
   (3)Ref Hook: React.useRef()
+
 ### State Hook
+
 * 1.语法: const [xxx,setXxx] = React.useState(initValue)
 * 2.setXxx()两种写法
     1. setXxx(newValue):参数为非函数值，直接指定新的状态值，内部用其覆盖原来的状态值
     2. setXxx(value=>newValue):参数为函数，接收原本的状态值，返回新的状态值，内部用其覆盖原来的状态值
+
 ```
 function StateHook() {
     const [count, setCount] = React.useState(0)
@@ -406,11 +400,12 @@ function StateHook() {
 export default StateHook;
 
 ```
-  
+
 ### Effect Hook
+
 * 1 . effect Hook 让你能在函数组件中使用到执行副作用操作（类似类组件中的生命周期钩子）
 * 2 . react中的副作用操作:发送ajax，设置订阅/启动定时器，手动改写真实的dom
-* 3 . 
+* 3 .
 
 ```
  React.useEffect(() => {
@@ -424,4 +419,74 @@ export default StateHook;
     //[要监听的值,要监听的值,...]，值的改变都会调用，（类似于类组件的componentDidUpdate）
 
 ```
-    
+
+### Ref Hook
+使用Ref Hook 可以让函数组件像类组件使用标签
+
+```
+const refName = React.useRef()
+
+function XXX() {
+   alert( refName.current.value)
+   
+   }
+
+<input type="text" ref={refName} />
+
+```
+
+## Fragment使用
+* 1.<Fragment ></Fragment>相当于vue中的template标签，在DoM树中不会显示
+* 2.简写方式<></>
+* 3.简写方式的标签上不能有任何属性，Fragment上只能有一个key属性
+```
+import React, {Component,Fragment} from 'react';
+
+ <Fragment >
+    <input type="text"/>
+     <input type="text"/>
+ </Fragment>
+```
+## context使用--一种组件间的通信方式，常用于【祖组件】于【后代组件】间通信
+* 1. 创建Context容器对象
+  ```
+  //要创建在组件都共享的空间里
+  const MyContext = React.createContext()
+  ```
+* 2.用MyContext.Provider包裹子组件，value给后代组件传值
+```
+<MyContext.Provider value={{name, age}}>
+                  子组件
+ </MyContext.Provider>
+```
+* 3.后代读取组件
+  * 第一种方式：仅试用类组件
+  ```
+  static contextType = MyContext //声明接收值
+  this.context //读取context值使用
+  
+  
+  ```
+  *第二种方式：函数组件和类组件都能用
+  ```
+  <MyContext.Consumer value={{name, age}}>
+  {
+    value=>( // value是context中的value数据
+      要显示的内容
+    )
+  }
+  </MyContext.Consumer>
+  
+  ```
+* **_注意_** ：在应用开发中一般不用context，一般都用它的封装react插件
+
+## 组件优化
+  * _**问题**_：setState()即使不改变状态数据，组件也会重新render，子组件没用到父组件的state也会render--效率低
+  * **_效率高的做法_**：只有单组件的state或props数据改变才重新render()
+  * **_原因_**：Component中shouldComponentUpdate（）总是返回true
+  * **_解决：_**： 
+    * 1.重写shouldComponentUpdate（）方法，比较新旧state或props数据，如果有变化才返回true，如果没有返回false
+    * 2.使用PureComponent(底层重写shouldComponentUpdate)--常用
+      
+      **_注意：_**: 只是进行state和props数据的浅比较，如果只是数据对象的内部数据变了，返回false,不要直接修改state数据，而是产生新数据
+  

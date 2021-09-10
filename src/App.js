@@ -6,6 +6,8 @@ import EffectHook from "./components/04_effectHook";
 import RefHook from "./components/05_refHook";
 import A from "./components/06_Context";
 import Optimize from "./components/07_ComponentOptimiza";
+import RenderProp from "./components/08_renderProp";
+import ErrorBoundary from "./components/09_errorBoundary";
 
 
 class App extends Component {
@@ -34,6 +36,12 @@ class App extends Component {
                     <hr/>
                     <h2>component优化</h2>
                     <Optimize/>
+                    <hr/>
+                    <h2>renderProp(插槽)</h2>
+                    <RenderProp/>
+                    <hr/>
+                    <h2>错误边界</h2>
+                    <ErrorBoundary/>
                 </Fragment>
             </div>
 

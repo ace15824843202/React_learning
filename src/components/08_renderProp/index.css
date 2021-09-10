@@ -1,0 +1,21 @@
+.parent{
+    width: 500px;
+    background-color: orange;
+    padding: 10px;
+    margin-left: 40px;
+}
+.a{
+    width: 100%;
+    background-color: paleturquoise;
+    padding: 10px;
+}
+.b{
+    width: 100%;
+    background-color: plum;
+    padding: 10px;
+}
+.ggrand{
+    width: 100%;
+    background-color: bisque;
+    padding: 10px;
+}

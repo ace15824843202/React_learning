@@ -51,13 +51,13 @@ function D() {
     return (
         <div className="ggrand">
             <h5>我是D组件(曾孙函数组件)
-                <h5>
+                <span>
                     <Consumer>
                         {
                             value => (`从A组件传过来的数据：我叫${value.name},年龄${value.age}`)
                         }
                     </Consumer>
-                </h5>
+                </span>
             </h5>
         </div>
     );

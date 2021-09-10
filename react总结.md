@@ -490,3 +490,48 @@ import React, {Component,Fragment} from 'react';
       
       **_注意：_**: 只是进行state和props数据的浅比较，如果只是数据对象的内部数据变了，返回false,不要直接修改state数据，而是产生新数据
   
+## renderProp---插槽
+* 1.render props:通过组件标签属性传入结构，一般用render函数属性
+```
+<A render={(value) => <B value={value}/>}/>
+A组件：{this.props.render(A组件内部数据)}
+B组件：<span>我从A组件拿到的{this.props.value}</span>
+```
+* 2.children props --B组件拿不到A组件内部的state数据
+```
+<A> <B/> </A>
+A组件：{this.props.childern}
+```
+## 错误边界  
+* 1.错误边界（Error boundary):用来捕获后代组件的错误，渲染出备用页面
+* 2.特点：只能用来捕获后代组件生命周期产生的错误，不能捕获自己组件产生的错误和其他组件在合成事件，定时器中产生的错误
+* 3.使用方法 getDerivedStateFromError配合componentDidCatch
+```
+//当子组件出现报错时，会触发调用，并携带错误信息
+    //state中的某些值永远取决于error
+    static getDerivedStateFromError(error) {
+        console.log('----error', error)
+        return {hasError: error}
+    }
+    componentDidCatch(error, errorInfo) {
+        console.log('此处统计错误，反馈给服务器，用户通知编码人员进行bug解决',error,errorInfo)
+    }
+```
+ 
+##组件通信方式
+* 1.通信方式
+
+  （1）props：children prop 和render prop（插槽）
+
+  （2）消息订阅-发布：pubs-sub、event等
+
+  （3）集中式管理：redux dev等
+
+  （4）conText:生产者-消费者模式
+* 2.如何选择搭配
+  
+  （1）父子组件：props
+
+  （2）兄弟组件：消息订阅，集中式管理
+
+  （3）祖孙组件：消息订阅发布，集中式管理，context（开发用的少，插件用的多）

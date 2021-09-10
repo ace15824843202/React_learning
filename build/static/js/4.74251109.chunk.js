@@ -1,0 +1,2 @@
+(this["webpackJsonpmyapp-gt"]=this["webpackJsonpmyapp-gt"]||[]).push([[4],{43:function(t,e,n){"use strict";n.r(e);var a=n(2),c=n(3),r=n(5),p=n(4),u=n(1),i=n(0),s=function(t){Object(r.a)(n,t);var e=Object(p.a)(n);function n(){return Object(a.a)(this,n),e.apply(this,arguments)}return Object(c.a)(n,[{key:"render",value:function(){return Object(i.jsx)("h3",{children:"\u6211\u662fHome\u7684\u5185\u5bb9"})}}]),n}(u.Component);e.default=s}}]);
+//# sourceMappingURL=4.74251109.chunk.js.map
